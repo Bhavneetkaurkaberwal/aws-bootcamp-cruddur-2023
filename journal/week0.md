@@ -3,7 +3,7 @@
 ## Required Homework
 
 ### Install AWS CLI
-
+I was able to install AWS CLI using gitpod.
 
 ### Create a Budget
 I created a budget of $10 for the AWS Project.
