@@ -14,11 +14,11 @@ I understood how the containers work and the tools I can leverage to make sure t
 ### Implement the notifications backend
 
 I followed along the video and was able to get my backend working.
-![Cruddur Notifications Feature (backend)](assets/notifications_backend.png)
+![Cruddur Notifications Feature (backend)](assets/notifications-backend.png)
 
 ### Implement the notifications frontend
 
-![Cruddur Notifications Feature (frontend)](assets/notifications_frontend.png)
+![Cruddur Notifications Feature (frontend)](assets/notifications-frontend.png)
 
 ### Run DynamoDB and Postgres Container
 
