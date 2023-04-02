@@ -24,14 +24,14 @@ class Db:
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
     try:
-      conn = self.pool.connection()
-      cur = conn.cursor()
-      cur.execute(sql, kwargs)
-      if is_returning_id:
-        returning_id = cur.fetchone()[0]
-      conn.commit()
-      if is_returning_id:
-        return returning_id
+      with self.pool.connection() as conn:
+        cur = conn.cursor()
+        cur.execute(sql, kwargs)
+        if is_returning_id:
+          returning_id = cur.fetchone()[0]
+        conn.commit()
+        if is_returning_id:
+          return returning_id
     except Exception as error:
       self.print_sql_err(error)
 
