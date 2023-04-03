@@ -10,8 +10,12 @@ class Db:
 
   def template(self, name):
     template_path = os.path.join(app.root_path, 'db', 'sql', name+'.sql')
+    print("file path ----------")
+    print(template_path)
     with open(template_path, 'r') as f:
       template_content = f.read()
+    print("Template content ------")
+    print(template_content)
     return template_content
 
   def init_pool(self):
@@ -20,13 +24,15 @@ class Db:
 
   # we want to commit data such as an insert
   # be sure to check for RETURNING in all uppercases
-  def query_commit(self,sql,*kwargs):
+  def query_commit(self,sql,params):
+    print('SQL from query commit ------------')
+    print(sql)
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
     try:
       with self.pool.connection() as conn:
         cur = conn.cursor()
-        cur.execute(sql, kwargs)
+        cur.execute(sql,params)
         if is_returning_id:
           returning_id = cur.fetchone()[0]
         conn.commit()
