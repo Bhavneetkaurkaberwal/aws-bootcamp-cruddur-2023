@@ -42,22 +42,22 @@ class Db:
       self.print_sql_err(error)
 
   # when we want to return an array of json objects
-  def query_array_json(self, sql):
+  def query_array_json(self, sql, params={}):
     wrapped_sql = self.query_wrap_array(sql)
     with self.pool.connection() as conn:
         with conn.cursor() as cur:
-          cur.execute(wrapped_sql)
+          cur.execute(wrapped_sql, params)
           # this will return a tuple
           # the first field being the data
           json = cur.fetchone()
           return json[0]
 
   # when we want to return a json object
-  def query_object_json(self, sql):
+  def query_object_json(self, sql, params={}):
     wrapped_sql = self.query_wrap_object(sql)
     with self.pool.connection() as conn:
         with conn.cursor() as cur:
-          cur.execute(wrapped_sql)
+          cur.execute(wrapped_sql,params)
           # this will return a tuple
           # the first field being the data
           json = cur.fetchone()
