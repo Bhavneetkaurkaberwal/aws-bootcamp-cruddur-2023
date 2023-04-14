@@ -8,8 +8,10 @@ class Db:
   def __init__(self):
     self.init_pool()
 
-  def template(self, name):
-    template_path = os.path.join(app.root_path, 'db', 'sql', name+'.sql')
+  def template(self, *args):
+    path = list((app.root_path,'db','sql',) + args)
+    path[-1] = path[-1] + ".sql"
+    template_path = os.path.join(*path)
     print("file path ----------")
     print(template_path)
     with open(template_path, 'r') as f:
@@ -24,7 +26,7 @@ class Db:
 
   # we want to commit data such as an insert
   # be sure to check for RETURNING in all uppercases
-  def query_commit(self,sql,params):
+  def query_commit(self,sql,params={}):
     print('SQL from query commit ------------')
     print(sql)
     pattern = r"\bRETURNING\b"
@@ -61,7 +63,10 @@ class Db:
           # this will return a tuple
           # the first field being the data
           json = cur.fetchone()
-          return json[0]
+          if json == None:
+            return {}
+          else: 
+            return json[0]
 
   def print_sql_err(self, err):
     # get details about the exception
