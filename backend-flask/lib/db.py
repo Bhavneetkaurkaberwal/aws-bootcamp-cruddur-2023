@@ -27,8 +27,7 @@ class Db:
   # we want to commit data such as an insert
   # be sure to check for RETURNING in all uppercases
   def query_commit(self,sql,params={}):
-    print('SQL from query commit ------------')
-    print(sql)
+    print('SQL with returning', sql, params)
     pattern = r"\bRETURNING\b"
     is_returning_id = re.search(pattern, sql)
     try:
