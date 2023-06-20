@@ -125,7 +125,7 @@ def data_message_groups():
     app.logger.debug('Authenticated')
     app.logger.debug(claims)
     cognito_user_id = claims['sub']
-    model = MessageGroups.run(user_handle=user_handle)
+    model = MessageGroups.run(cognito_user_id=cognito_user_id)
     if model['errors'] is not None:
       return model['errors'], 422
     else:
@@ -133,7 +133,7 @@ def data_message_groups():
   except TokenVerifyError as e:
     # unauthenticated request
     app.logger.debug("Unauthenticated")
-    return model['data'], 401
+    return {}, 401
 
 @app.route("/api/messages/@<string:handle>", methods=['GET'])
 def data_messages(handle):
