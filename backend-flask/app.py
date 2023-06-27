@@ -121,6 +121,7 @@ def data_message_groups():
   access_token = extract_access_token(request.headers)
   try:
     claims = cognito_jwt_token.verify(access_token)
+    print("-----Claims within message groups", claims)
     # authenticated request
     app.logger.debug('Authenticated')
     app.logger.debug(claims)
@@ -137,7 +138,7 @@ def data_message_groups():
 
 @app.route("/api/messages/@<string:handle>", methods=['GET'])
 def data_messages(handle):
-  user_sender_handle = 'andrewbrown'
+  user_sender_handle = 'Bhavneet'
   user_receiver_handle = request.args.get('user_reciever_handle')
 
   model = Messages.run(user_sender_handle=user_sender_handle, user_receiver_handle=user_receiver_handle)
